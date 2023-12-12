@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "app",
+      "args": ["run", "spotlesssquad/app/main.py"],
+      "env": {
+        "STREAMLIT_BROWSER_GATHER_USAGE_STATS": "FALSE",
+        "STREAMLIT_SERVER_HEADLESS": "TRUE",
+        "STREAMLIT_SERVER_ENABLE_CORS": "FALSE",
+        "STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION": "FALSE"
+      },
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "module": "streamlit",
+      "request": "launch",
+      "type": "python",
+      "justMyCode": false
+    }
+  ]
+}
