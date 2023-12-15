@@ -52,6 +52,7 @@ coverage.xml
 cover/
 coverage-*/
 coverage.json
+pytest-report.html
 
 # Translations
 *.mo
