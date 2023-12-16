@@ -72,7 +72,7 @@ def test_update_user_name_1(sql_engine: sqlalchemy.engine.Engine) -> None:
 
         users_df = pd.read_sql_query(stmt, con)
 
-    assert res == models.UpdateStatus.SUCCESS
+    assert res == models.UpdateNameStatus.SUCCESS
     assert users_df.shape[0] == 1
     assert users_df.iloc[0]["name"] == "new_user"
 
@@ -94,7 +94,7 @@ def test_update_user_name_2(sql_engine: sqlalchemy.engine.Engine) -> None:
         )
         users_df = pd.read_sql_query(stmt, con)
 
-    assert res == models.UpdateStatus.USER_NOT_FOUND
+    assert res == models.UpdateNameStatus.USER_NOT_FOUND
     assert users_df.shape[0] == 0
 
 
@@ -459,7 +459,7 @@ def test_update_imgBase64_1(sql_engine: sqlalchemy.engine.Engine) -> None:
         )
         users_df = pd.read_sql_query(stmt, con)
 
-    assert res == models.UpdateStatus.SUCCESS
+    assert res == models.UpdateNameStatus.SUCCESS
     assert users_df.shape[0] == 1
     assert users_df.iloc[0]["imgBase64"] == "new_imgBase64"
 
@@ -477,7 +477,7 @@ def test_update_imgBase64_2(sql_engine: sqlalchemy.engine.Engine) -> None:
             email="wrong_email@gmail.com", new_imgBase64="new_imgBase64", con=con
         )
 
-    assert res == models.UpdateStatus.USER_NOT_FOUND
+    assert res == models.UpdateNameStatus.USER_NOT_FOUND
 
 
 def test_update_imgBase64_3(sql_engine: sqlalchemy.engine.Engine) -> None:
@@ -491,4 +491,4 @@ def test_update_imgBase64_3(sql_engine: sqlalchemy.engine.Engine) -> None:
     with sql_engine.begin() as con:
         res = update_imgBase64(email="email@gmail.com", new_imgBase64="", con=con)
 
-    assert res == models.UpdateStatus.SUCCESS
+    assert res == models.UpdateNameStatus.SUCCESS

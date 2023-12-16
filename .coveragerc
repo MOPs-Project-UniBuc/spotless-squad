@@ -1,3 +1,3 @@
 [run]
 source = src
-omit = __init__.py, renderer.py
+omit = __init__.py
