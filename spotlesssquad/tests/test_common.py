@@ -1,5 +1,3 @@
-import sqlite3
-
 import pytest
 import sqlalchemy
 
@@ -7,7 +5,7 @@ from spotlesssquad.sql import tables
 
 
 @pytest.fixture()
-def sql_engine() -> sqlite3.Connection:
+def sql_engine() -> sqlalchemy.engine.Engine:
     # open in-memory database
     engine = sqlalchemy.create_engine("sqlite:///:memory:", echo=True)
 
