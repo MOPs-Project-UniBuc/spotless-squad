@@ -54,3 +54,30 @@ checks:
 ruff:
 	pre-commit run ruff --all
 	pre-commit run ruff-format --all
+
+
+SENTRY_ORG=atm-fd
+SENTRY_PROJECT=python
+VERSION=$(shell sentry-cli releases propose-version)
+
+deploy: install create_release associate_commits run_streamlit
+
+install:
+	pip install -r requirements.txt
+
+create_release:
+	sentry-cli releases \
+	-o ${SENTRY_ORG} \
+	new \
+	-p ${SENTRY_PROJECT} ${VERSION}
+
+associate_commits:
+	sentry-cli releases \
+	-o ${SENTRY_ORG} \
+	-p ${SENTRY_PROJECT} \
+	set-commits ${VERSION} \
+	--ignore-missing \
+	--auto
+
+run_streamlit:
+	python -m streamlit run spotlesssquad/app/main.py
