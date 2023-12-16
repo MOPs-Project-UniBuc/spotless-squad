@@ -99,18 +99,34 @@ def update_password(
         return models.UpdatePasswordStatus.FAILURE
 
 
+def check_phone_validity(phone: str) -> models.UpdatePhoneStatus:
+    """
+    Check if phone is valid.
+    """
+    if len(phone) < 10:
+        return models.UpdatePhoneStatus.NUMBER_TOO_SHORT
+    elif len(phone) > 10:
+        return models.UpdatePhoneStatus.NUMBER_TOO_LONG
+
+    return models.UpdatePhoneStatus.SUCCESS
+
+
 def update_phone(
     email: str,
     new_phone: str,
     con: sqlalchemy.Connection,
-) -> models.UpdateStatus:
+) -> models.UpdatePhoneStatus:
     """
     Update user for the given email.
     """
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdatePhoneStatus.USER_NOT_FOUND
+
+    validity_res = check_phone_validity(new_phone)
+    if validity_res != models.UpdatePhoneStatus.SUCCESS:
+        return validity_res
 
     res = update_user(
         email=email,
@@ -119,23 +135,33 @@ def update_phone(
     )
 
     if res:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdatePhoneStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdatePhoneStatus.FAILURE
+
+
+def check_address_validity(address: str) -> bool:
+    """
+    Check if address is valid.
+    """
+    return len(address) <= 0
 
 
 def update_address(
     email: str,
     new_address: str,
     con: sqlalchemy.Connection,
-) -> models.UpdateStatus:
+) -> models.UpdateAddressStatus:
     """
     Update user for the given email.
     """
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdateAddressStatus.USER_NOT_FOUND
+
+    if not check_address_validity(new_address):
+        return models.UpdateAddressStatus.ADDRESS_IS_NONE
 
     res = update_user(
         email=email,
@@ -144,9 +170,9 @@ def update_address(
     )
 
     if res:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdateAddressStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdateAddressStatus.FAILURE
 
 
 def update_city(
