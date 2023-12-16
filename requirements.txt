@@ -19,6 +19,7 @@ ruff==0.1.6
 
 # for APP
 streamlit==1.29.0
+streamlit-authenticator==0.2.3
 
 # for sqlite ORM
 SQLAlchemy==2.0.23
