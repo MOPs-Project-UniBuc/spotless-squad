@@ -23,10 +23,6 @@ def update_user(
     values: dict[sqlalchemy.Column[Any], str],
     con: sqlalchemy.engine.Connection,
 ) -> bool:
-    """
-    Update user for the given email.
-    """
-
     # check if user exists
     if not user_exists(email, con):
         return False
@@ -47,10 +43,6 @@ def update_name(
     new_name: str,
     con: sqlalchemy.engine.Connection,
 ) -> models.UpdateStatus:
-    """
-    Update user for the given email.
-    """
-
     # check if user exists
     if not user_exists(email, con):
         return models.UpdateStatus.USER_NOT_FOUND
@@ -79,10 +71,6 @@ def update_password(
     new_password: str,
     con: sqlalchemy.engine.Connection,
 ) -> models.UpdatePasswordStatus:
-    """
-    Update user for the given email.
-    """
-
     if not check_password_validity(new_password):
         return models.UpdatePasswordStatus.PASSWORD_TOO_SHORT
 
@@ -119,10 +107,6 @@ def update_phone(
     new_phone: str,
     con: sqlalchemy.engine.Connection,
 ) -> models.UpdatePhoneStatus:
-    """
-    Update user for the given email.
-    """
-
     # check if user exists
     if not user_exists(email, con):
         return models.UpdatePhoneStatus.USER_NOT_FOUND
@@ -155,15 +139,11 @@ def update_address(
     new_address: str,
     con: sqlalchemy.engine.Connection,
 ) -> models.UpdateAddressStatus:
-    """
-    Update user for the given email.
-    """
-
     # check if user exists
     if not user_exists(email, con):
         return models.UpdateAddressStatus.USER_NOT_FOUND
 
-    if not check_address_validity(new_address):
+    if check_address_validity(new_address):
         return models.UpdateAddressStatus.ADDRESS_IS_NONE
 
     res = update_user(
@@ -178,18 +158,24 @@ def update_address(
         return models.UpdateAddressStatus.FAILURE
 
 
+def check_city_validity(city: str) -> bool:
+    """
+    Check if city is valid.
+    """
+    return len(city) <= 0
+
+
 def update_city(
     email: str,
     new_city: str,
     con: sqlalchemy.engine.Connection,
-) -> models.UpdateStatus:
-    """
-    Update user for the given email.
-    """
-
+) -> models.UpdateCityStatus:
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdateCityStatus.USER_NOT_FOUND
+
+    if check_city_validity(new_city):
+        return models.UpdateCityStatus.CITY_IS_NONE
 
     res = update_user(
         email=email,
@@ -198,23 +184,33 @@ def update_city(
     )
 
     if res:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdateCityStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdateCityStatus.FAILURE
+
+
+def check_zip_validity(zip: str) -> bool:
+    """
+    Check if zip is valid.
+    """
+    return len(zip) == 6
 
 
 def update_zip(
     email: str,
     new_zip: str,
     con: sqlalchemy.engine.Connection,
-) -> models.UpdateStatus:
+) -> models.UpdateZipStatus:
     """
     Update user for the given email.
     """
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdateZipStatus.USER_NOT_FOUND
+
+    if not check_zip_validity(new_zip):
+        return models.UpdateZipStatus.ZIP_INVALID
 
     res = update_user(
         email=email,
@@ -223,23 +219,33 @@ def update_zip(
     )
 
     if res:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdateZipStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdateZipStatus.FAILURE
+
+
+def check_country_validity(country: str) -> bool:
+    """
+    Check if country is valid.
+    """
+    return len(country) <= 0
 
 
 def update_country(
     email: str,
     new_country: str,
     con: sqlalchemy.engine.Connection,
-) -> models.UpdateStatus:
+) -> models.UpdateCountryStatus:
     """
     Update user for the given email.
     """
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdateCountryStatus.USER_NOT_FOUND
+
+    if check_country_validity(new_country):
+        return models.UpdateCountryStatus.COUNTRY_IS_NONE
 
     res = update_user(
         email=email,
@@ -248,9 +254,9 @@ def update_country(
     )
 
     if res == 1:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdateCountryStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdateCountryStatus.FAILURE
 
 
 def update_imgBase64(

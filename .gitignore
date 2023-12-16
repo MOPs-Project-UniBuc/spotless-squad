@@ -54,6 +54,8 @@ coverage-*/
 coverage.json
 pytest-report.html
 
+junit.xml
+
 # Translations
 *.mo
 *.pot
