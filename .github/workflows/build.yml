@@ -44,7 +44,6 @@ jobs:
         run: |
           pytest \
           -v \
-          -n auto \
           --random-order \
           --html=pytest-report.html --self-contained-html \
           --exitfirst \
@@ -63,7 +62,6 @@ jobs:
         run: |
           pytest \
           -v \
-          -n auto \
           --random-order \
           --html=pytest-report.html --self-contained-html \
           --exitfirst \

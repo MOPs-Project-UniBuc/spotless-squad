@@ -10,7 +10,6 @@ help:
 pytest:
 	pytest \
 	-v \
-	-n auto \
 	--random-order \
 	--html=pytest-report.html --self-contained-html \
 	--exitfirst \
@@ -21,7 +20,6 @@ pytest:
 pycoverage:
 	pytest \
 	-v \
-	-n auto \
 	--random-order \
 	--html=pytest-report.html --self-contained-html \
 	--exitfirst \

@@ -27,9 +27,33 @@ class ClientUsers(Base):
     imgBase64 = sqlalchemy.Column(sqlalchemy.Text)
 
 
-def create_client_users_table(con: sqlalchemy.engine.Engine) -> None:
+def create_client_users_table(sql_engine: sqlalchemy.engine.Engine) -> None:
     # CREATE CLIENT USERS TABLE
-    ClientUsers.__table__.create(con)
+    with sql_engine.begin() as con:
+        create = sqlalchemy.text(
+            """CREATE TABLE IF NOT EXISTS ClientUsers (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT NOT NULL,
+            address TEXT NOT NULL,
+            city TEXT NOT NULL,
+            zip TEXT NOT NULL,
+            country TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            imgBase64 TEXT
+        )"""
+        )
+        con.execute(create)
+
+
+def drop_client_users_table(sql_engine: sqlalchemy.engine.Engine) -> None:
+    # DROP CLIENT USERS TABLE
+    with sql_engine.begin() as con:
+        drop = sqlalchemy.text("DROP TABLE IF EXISTS ClientUsers")
+        con.execute(drop)
 
 
 class CleanServiceProviders(Base):
@@ -52,6 +76,31 @@ class CleanServiceProviders(Base):
     imgBase64 = sqlalchemy.Column(sqlalchemy.Text)
 
 
-def create_clean_service_providers_table(con: sqlalchemy.engine.Engine) -> None:
+def create_clean_service_providers_table(sql_engine: sqlalchemy.engine.Engine) -> None:
     # CREATE CLEAN SERVICE PROVIDERS TABLE
-    CleanServiceProviders.__table__.create(con)
+    with sql_engine.begin() as con:
+        create = sqlalchemy.text(
+            """CREATE TABLE IF NOT EXISTS CleanServiceProviders (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT NOT NULL,
+            address TEXT NOT NULL,
+            city TEXT NOT NULL,
+            zip TEXT NOT NULL,
+            country TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            cleanServiceType TEXT NOT NULL,
+            imgBase64 TEXT
+        )"""
+        )
+        con.execute(create)
+
+
+def drop_clean_service_providers_table(sql_engine: sqlalchemy.engine.Engine) -> None:
+    # DROP CLEAN SERVICE PROVIDERS TABLE
+    with sql_engine.begin() as con:
+        drop = sqlalchemy.text("DROP TABLE IF EXISTS CleanServiceProviders")
+        con.execute(drop)
