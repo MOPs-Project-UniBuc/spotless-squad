@@ -107,6 +107,10 @@ def test_settings_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
 
     at.text_input[0].input("name1").run()
     at.text_input[4].input("0767156688").run()
+    at.text_input[5].input("new_address").run()
+    at.text_input[6].input("new_city").run()
+    at.text_input[7].input("new_country").run()
+    at.text_input[8].input("123321").run()
 
     at.button[0].click().run()
 
@@ -116,3 +120,345 @@ def test_settings_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
 
     assert users_df["name"][0] == "name1"
     assert users_df["phone"][0] == "0767156688"
+
+
+def test_settings_2(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User enters valid credentials
+    Insert invalid values
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    # enter invalid credentials
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    assert at.sidebar.radio[0].value == "Settings"
+
+    at.sidebar.radio[0].set_value("Settings").run()
+
+    assert at.header[0].value == "Settings"
+
+    assert at.text_input[0].label == "Name"
+    assert at.text_input[1].label == "Username"
+    assert at.text_input[2].label == "Email"
+    assert at.text_input[3].label == "Password"
+    assert at.text_input[4].label == "Phone"
+    assert at.text_input[5].label == "Address"
+    assert at.text_input[6].label == "City"
+    assert at.text_input[7].label == "Country"
+    assert at.text_input[8].label == "ZIP Code"
+
+    assert at.button[0].label == "Save"
+
+    at.text_input[4].input("076715668").run()
+
+    at.button[0].click().run()
+
+    assert at.error[0].value == "Failed to update phone"
+
+
+def test_settings_3(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User enters valid credentials
+    Insert invalid values
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    # enter invalid credentials
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    assert at.sidebar.radio[0].value == "Settings"
+
+    at.sidebar.radio[0].set_value("Settings").run()
+
+    assert at.header[0].value == "Settings"
+
+    assert at.text_input[0].label == "Name"
+    assert at.text_input[1].label == "Username"
+    assert at.text_input[2].label == "Email"
+    assert at.text_input[3].label == "Password"
+    assert at.text_input[4].label == "Phone"
+    assert at.text_input[5].label == "Address"
+    assert at.text_input[6].label == "City"
+    assert at.text_input[7].label == "Country"
+    assert at.text_input[8].label == "ZIP Code"
+
+    assert at.button[0].label == "Save"
+
+    at.text_input[5].input("").run()
+
+    at.button[0].click().run()
+
+    assert at.error[0].value == "Failed to update address"
+
+
+def test_settings_4(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User enters valid credentials
+    Insert invalid values
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    # enter invalid credentials
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    assert at.sidebar.radio[0].value == "Settings"
+
+    at.sidebar.radio[0].set_value("Settings").run()
+
+    assert at.header[0].value == "Settings"
+
+    assert at.text_input[0].label == "Name"
+    assert at.text_input[1].label == "Username"
+    assert at.text_input[2].label == "Email"
+    assert at.text_input[3].label == "Password"
+    assert at.text_input[4].label == "Phone"
+    assert at.text_input[5].label == "Address"
+    assert at.text_input[6].label == "City"
+    assert at.text_input[7].label == "Country"
+    assert at.text_input[8].label == "ZIP Code"
+
+    assert at.button[0].label == "Save"
+
+    at.text_input[0].input("").run()
+
+    at.button[0].click().run()
+
+    assert at.error[0].value == "Failed to update name"
+
+
+def test_settings_5(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User enters valid credentials
+    Insert invalid values
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    # enter invalid credentials
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    assert at.sidebar.radio[0].value == "Settings"
+
+    at.sidebar.radio[0].set_value("Settings").run()
+
+    assert at.header[0].value == "Settings"
+
+    assert at.text_input[0].label == "Name"
+    assert at.text_input[1].label == "Username"
+    assert at.text_input[2].label == "Email"
+    assert at.text_input[3].label == "Password"
+    assert at.text_input[4].label == "Phone"
+    assert at.text_input[5].label == "Address"
+    assert at.text_input[6].label == "City"
+    assert at.text_input[7].label == "Country"
+    assert at.text_input[8].label == "ZIP Code"
+
+    assert at.button[0].label == "Save"
+
+    at.text_input[6].input("").run()
+
+    at.button[0].click().run()
+
+    assert at.error[0].value == "Failed to update city"
+
+
+def test_settings_6(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User enters valid credentials
+    Insert invalid values
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    # enter invalid credentials
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    assert at.sidebar.radio[0].value == "Settings"
+
+    at.sidebar.radio[0].set_value("Settings").run()
+
+    assert at.header[0].value == "Settings"
+
+    assert at.text_input[0].label == "Name"
+    assert at.text_input[1].label == "Username"
+    assert at.text_input[2].label == "Email"
+    assert at.text_input[3].label == "Password"
+    assert at.text_input[4].label == "Phone"
+    assert at.text_input[5].label == "Address"
+    assert at.text_input[6].label == "City"
+    assert at.text_input[7].label == "Country"
+    assert at.text_input[8].label == "ZIP Code"
+
+    assert at.button[0].label == "Save"
+
+    at.text_input[7].input("").run()
+
+    at.button[0].click().run()
+
+    assert at.error[0].value == "Failed to update country"
+
+
+def test_settings_7(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User enters valid credentials
+    Insert invalid values
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    # enter invalid credentials
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    assert at.sidebar.radio[0].value == "Settings"
+
+    at.sidebar.radio[0].set_value("Settings").run()
+
+    assert at.header[0].value == "Settings"
+
+    assert at.text_input[0].label == "Name"
+    assert at.text_input[1].label == "Username"
+    assert at.text_input[2].label == "Email"
+    assert at.text_input[3].label == "Password"
+    assert at.text_input[4].label == "Phone"
+    assert at.text_input[5].label == "Address"
+    assert at.text_input[6].label == "City"
+    assert at.text_input[7].label == "Country"
+    assert at.text_input[8].label == "ZIP Code"
+
+    assert at.button[0].label == "Save"
+
+    at.text_input[8].input("").run()
+
+    at.button[0].click().run()
+
+    assert at.error[0].value == "Failed to update zip"

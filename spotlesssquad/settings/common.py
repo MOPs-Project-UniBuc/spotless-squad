@@ -34,14 +34,24 @@ def update_user(
     return res.rowcount == 1
 
 
+def check_name_validity(name: str) -> bool:
+    """
+    Check if name is valid.
+    """
+    return len(name) <= 0
+
+
 def update_name(
     email: str,
     new_name: str,
     con: sqlalchemy.engine.Connection,
-) -> models.UpdateStatus:
+) -> models.UpdateNameStatus:
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdateNameStatus.USER_NOT_FOUND
+
+    if check_name_validity(new_name):
+        return models.UpdateNameStatus.NAME_IS_NONE
 
     res = update_user(
         email=email,
@@ -50,9 +60,9 @@ def update_name(
     )
 
     if res:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdateNameStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdateNameStatus.FAILURE
 
 
 def check_password_validity(password: str) -> bool:
@@ -259,14 +269,14 @@ def update_imgBase64(
     email: str,
     new_imgBase64: str,
     con: sqlalchemy.engine.Connection,
-) -> models.UpdateStatus:
+) -> models.UpdateNameStatus:
     """
     Update user for the given email.
     """
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdateNameStatus.USER_NOT_FOUND
 
     res = update_user(
         email=email,
@@ -275,6 +285,6 @@ def update_imgBase64(
     )
 
     if res:
-        return models.UpdateStatus.SUCCESS
+        return models.UpdateNameStatus.SUCCESS
     else:
-        return models.UpdateStatus.FAILURE
+        return models.UpdateNameStatus.FAILURE

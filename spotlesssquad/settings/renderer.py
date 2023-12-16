@@ -27,7 +27,7 @@ def render(state: State) -> None:
         with st.spinner("Saving..."), state.sql_engine.begin() as con:
             if name != user.name:
                 ret1 = common.update_name(user.email, name, con)
-                if ret1 != models.UpdateStatus.SUCCESS:
+                if ret1 != models.UpdateNameStatus.SUCCESS:
                     st.error("Failed to update name")
                     return
             if phone != user.phone:

@@ -20,7 +20,6 @@ pytest:
 pycoverage:
 	pytest \
 	-v \
-	--random-order \
 	--html=pytest-report.html --self-contained-html \
 	--exitfirst \
 	--no-cov-on-fail \
