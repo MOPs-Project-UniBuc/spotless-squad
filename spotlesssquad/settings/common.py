@@ -1,10 +1,13 @@
+from typing import Any
+
 import sqlalchemy
+import sqlalchemy.engine
 
 from spotlesssquad.settings import models
 from spotlesssquad.sql import tables
 
 
-def user_exists(email: str, con: sqlalchemy.Connection) -> bool:
+def user_exists(email: str, con: sqlalchemy.engine.Connection) -> bool:
     """
     Check if user exists.
     """
@@ -17,8 +20,8 @@ def user_exists(email: str, con: sqlalchemy.Connection) -> bool:
 
 def update_user(
     email: str,
-    values: tuple[sqlalchemy.Column, str],
-    con: sqlalchemy.Connection,
+    values: dict[sqlalchemy.Column[Any], str],
+    con: sqlalchemy.engine.Connection,
 ) -> bool:
     """
     Update user for the given email.
@@ -42,7 +45,7 @@ def update_user(
 def update_name(
     email: str,
     new_name: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdateStatus:
     """
     Update user for the given email.
@@ -74,7 +77,7 @@ def check_password_validity(password: str) -> bool:
 def update_password(
     email: str,
     new_password: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdatePasswordStatus:
     """
     Update user for the given email.
@@ -85,7 +88,7 @@ def update_password(
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateStatus.USER_NOT_FOUND
+        return models.UpdatePasswordStatus.USER_NOT_FOUND
 
     res = update_user(
         email=email,
@@ -114,7 +117,7 @@ def check_phone_validity(phone: str) -> models.UpdatePhoneStatus:
 def update_phone(
     email: str,
     new_phone: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdatePhoneStatus:
     """
     Update user for the given email.
@@ -150,7 +153,7 @@ def check_address_validity(address: str) -> bool:
 def update_address(
     email: str,
     new_address: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdateAddressStatus:
     """
     Update user for the given email.
@@ -178,7 +181,7 @@ def update_address(
 def update_city(
     email: str,
     new_city: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdateStatus:
     """
     Update user for the given email.
@@ -203,7 +206,7 @@ def update_city(
 def update_zip(
     email: str,
     new_zip: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdateStatus:
     """
     Update user for the given email.
@@ -228,7 +231,7 @@ def update_zip(
 def update_country(
     email: str,
     new_country: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdateStatus:
     """
     Update user for the given email.
@@ -253,7 +256,7 @@ def update_country(
 def update_imgBase64(
     email: str,
     new_imgBase64: str,
-    con: sqlalchemy.Connection,
+    con: sqlalchemy.engine.Connection,
 ) -> models.UpdateStatus:
     """
     Update user for the given email.

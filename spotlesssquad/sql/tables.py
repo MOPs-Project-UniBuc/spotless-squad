@@ -4,7 +4,7 @@ import sqlalchemy
 import sqlalchemy.orm
 
 
-class Base(sqlalchemy.orm.DeclarativeBase):
+class Base(sqlalchemy.orm.DeclarativeBase):  # type: ignore
     pass
 
 
@@ -27,7 +27,7 @@ class ClientUsers(Base):
     imgBase64 = sqlalchemy.Column(sqlalchemy.Text)
 
 
-def create_client_users_table(con: sqlalchemy.engine.Engine):
+def create_client_users_table(con: sqlalchemy.engine.Engine) -> None:
     # CREATE CLIENT USERS TABLE
     ClientUsers.__table__.create(con)
 
@@ -52,6 +52,6 @@ class CleanServiceProviders(Base):
     imgBase64 = sqlalchemy.Column(sqlalchemy.Text)
 
 
-def create_clean_service_providers_table(con: sqlalchemy.engine.Engine):
+def create_clean_service_providers_table(con: sqlalchemy.engine.Engine) -> None:
     # CREATE CLEAN SERVICE PROVIDERS TABLE
     CleanServiceProviders.__table__.create(con)

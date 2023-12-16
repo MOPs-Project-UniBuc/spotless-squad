@@ -6,7 +6,7 @@ from spotlesssquad.settings.common import update_name, update_password, update_p
 from spotlesssquad.sql import tables
 
 
-def populate_table(sql_engine: sqlalchemy.engine.Engine):
+def populate_table(sql_engine: sqlalchemy.engine.Engine) -> None:
     # INSERT CLIENT USER
     # Populate ClientUsers Table
     users_df = pd.DataFrame(
@@ -45,7 +45,7 @@ def populate_table(sql_engine: sqlalchemy.engine.Engine):
         con.execute(insert_stmt)
 
 
-def test_update_user_name_1(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_name_1(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's name
     Context: user exists
@@ -68,7 +68,7 @@ def test_update_user_name_1(sql_engine: sqlalchemy.engine.Engine):
     assert users_df.iloc[0]["name"] == "new_user"
 
 
-def test_update_user_name_2(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_name_2(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's name
     Context: user doesn't exist
@@ -89,7 +89,7 @@ def test_update_user_name_2(sql_engine: sqlalchemy.engine.Engine):
     assert users_df.shape[0] == 0
 
 
-def test_update_user_password_1(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_password_1(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's password
     Context: user exists
@@ -113,7 +113,7 @@ def test_update_user_password_1(sql_engine: sqlalchemy.engine.Engine):
     assert users_df.iloc[0]["password"] == "password1234"
 
 
-def test_update_user_password_2(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_password_2(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's password
     Context: user doesn't exist
@@ -132,11 +132,11 @@ def test_update_user_password_2(sql_engine: sqlalchemy.engine.Engine):
         )
         users_df = pd.read_sql_query(stmt, con)
 
-    assert res == models.UpdateStatus.USER_NOT_FOUND
+    assert res == models.UpdatePasswordStatus.USER_NOT_FOUND
     assert users_df.shape[0] == 0
 
 
-def test_update_user_password_3(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_password_3(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's password
     Context: user exists, password too short
@@ -150,7 +150,7 @@ def test_update_user_password_3(sql_engine: sqlalchemy.engine.Engine):
     assert res == models.UpdatePasswordStatus.PASSWORD_TOO_SHORT
 
 
-def test_update_user_phone_1(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_phone_1(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's phone number
     Context: user exists, phone number too short
@@ -164,7 +164,7 @@ def test_update_user_phone_1(sql_engine: sqlalchemy.engine.Engine):
     assert res == models.UpdatePhoneStatus.NUMBER_TOO_SHORT
 
 
-def test_update_user_phone_2(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_phone_2(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's phone number
     Context: user exists, phone number too short
@@ -178,7 +178,7 @@ def test_update_user_phone_2(sql_engine: sqlalchemy.engine.Engine):
     assert res == models.UpdatePhoneStatus.NUMBER_TOO_LONG
 
 
-def test_update_user_phone_3(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_phone_3(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's phone number
     Context: user exists, phone ok
@@ -200,7 +200,7 @@ def test_update_user_phone_3(sql_engine: sqlalchemy.engine.Engine):
     assert users_df.iloc[0]["phone"] == "0767156688"
 
 
-def test_update_user_phone_4(sql_engine: sqlalchemy.engine.Engine):
+def test_update_user_phone_4(sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: Update an user's phone number
     Context: user doesn't exist
