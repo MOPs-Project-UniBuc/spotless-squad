@@ -9,9 +9,15 @@ from spotlesssquad.sql.tables import ClientUsers
 
 class State:
     def __init__(self) -> None:
-        self.sql_engine: sqlalchemy.engine.Engine = sqlalchemy.create_engine(
-            "sqlite:///spotlesssquad/SpotlessSquad.db"
-        )
+        sql_engine = st.session_state.get("sql_engine", None)
+
+        self.sql_engine: sqlalchemy.engine.Engine
+
+        if sql_engine is not None:
+            self.sql_engine = sql_engine
+        else:
+            path = "sqlite:///spotlesssquad/SpotlessSquad.db"
+            self.sql_engine = sqlalchemy.create_engine(path)
 
 
 def get_user_details(
