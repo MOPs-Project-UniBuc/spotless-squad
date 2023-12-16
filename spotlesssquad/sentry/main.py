@@ -1,3 +1,5 @@
+import time
+
 import sentry_sdk
 
 sentry_sdk.init(
@@ -10,5 +12,12 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
 )
+
+
+print("Hello World")
+
+time.sleep(10)
+
+print("Goodbye World")
 
 division_by_zero = 1 / 0

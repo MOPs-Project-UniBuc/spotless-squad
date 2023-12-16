@@ -78,13 +78,15 @@ jobs:
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Create Sentry release
         uses: getsentry/action-release@v1
+        with:
+          fetch-depth: 0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -92,3 +94,7 @@ jobs:
           # SENTRY_URL: https://sentry.io/
         with:
           environment: production
+
+      - name: Test with sentry
+        run: |
+          python -m spotlesssquad.sentry.main
