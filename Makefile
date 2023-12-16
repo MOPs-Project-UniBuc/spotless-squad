@@ -10,6 +10,8 @@ help:
 pytest:
 	pytest \
 	-v \
+	-n auto \
+	--random-order \
 	--html=pytest-report.html --self-contained-html \
 	--exitfirst \
 	spotlesssquad/tests/
@@ -19,6 +21,8 @@ pytest:
 pycoverage:
 	pytest \
 	-v \
+	-n auto \
+	--random-order \
 	--html=pytest-report.html --self-contained-html \
 	--exitfirst \
 	--no-cov-on-fail \
