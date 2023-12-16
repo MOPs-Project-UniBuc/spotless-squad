@@ -51,14 +51,14 @@ jobs:
           --doctest-modules \
           --junitxml=junit/test-results-${{ matrix.python-version }}.xml \
           spotlesssquad/tests/
-          
+
       - name: Upload pytest test results
         uses: actions/upload-artifact@v3
         with:
           name: pytest-results-${{ matrix.python-version }}
           path: junit/test-results-${{ matrix.python-version }}.xml
         if: ${{ always() }}
-      
+
       - name: Run tests
         run: |
           pytest \
@@ -73,7 +73,7 @@ jobs:
           --cov-report=html:./coverage-html \
           --cov-report=json:./coverage.json \
           spotlesssquad/tests/
-      
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
@@ -91,6 +91,7 @@ jobs:
           # SENTRY_URL: https://sentry.io/
         with:
           environment: production
+          ignore_missing: true
 
       - name: Test with sentry
         run: |
