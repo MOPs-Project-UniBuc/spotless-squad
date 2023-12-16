@@ -23,10 +23,6 @@ def update_user(
     values: dict[sqlalchemy.Column[Any], str],
     con: sqlalchemy.engine.Connection,
 ) -> bool:
-    # check if user exists
-    if not user_exists(email, con):
-        return False
-
     stmt = (
         sqlalchemy.update(tables.ClientUsers)
         .where(tables.ClientUsers.email == email)
