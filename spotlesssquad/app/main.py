@@ -2,8 +2,10 @@ import logging
 
 import streamlit as st
 
+from spotlesssquad.booking import renderer as booking_renderer
 from spotlesssquad.common import get_state
 from spotlesssquad.login import renderer as login_renderer
+from spotlesssquad.my_bookings import renderer as my_bookings_renderer
 from spotlesssquad.settings import renderer as settings_renderer
 
 
@@ -28,14 +30,18 @@ def main() -> None:
 
             st.experimental_rerun()
 
-        PAGES = {"Settings": settings_renderer.render}
+        PAGES = {
+            "Booking": booking_renderer.render,
+            "My Booking": my_bookings_renderer.render,
+            "Settings": settings_renderer.render,
+        }
 
         username = st.session_state["name"]
 
         selection = st.sidebar.radio("Go to", list(PAGES.keys()))
 
         if selection is None:
-            selection = "Main"
+            selection = "Booking"
 
         page = PAGES[selection]
         page(state)

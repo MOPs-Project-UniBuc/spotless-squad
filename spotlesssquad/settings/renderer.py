@@ -17,10 +17,11 @@ def render(state: State) -> None:
         image = cv2.imread("user.jpg")
     else:
         nparr = np.fromstring(  # type: ignore
-            string=str(base64.b64decode(user.imgBase64)),
+            string=base64.b64decode(user.imgBase64),
             dtype=np.uint8,
         )
-        image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        image = cv2.imdecode(nparr, cv2.IMREAD_ANYCOLOR)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     st.subheader("User: ", user.name)
 
