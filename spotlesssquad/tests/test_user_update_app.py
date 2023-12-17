@@ -48,7 +48,6 @@ def test_login_2(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
     with sql_engine_app.begin() as con:
         users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
 
-    # enter invalid credentials
     at.text_input[0].input("admin").run()
     at.text_input[1].input("admin").run()
     at.button[0].click().run()
@@ -80,7 +79,6 @@ def test_settings_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     with sql_engine_app.begin() as con:
         users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
 
-    # enter invalid credentials
     at.text_input[0].input("admin").run()
     at.text_input[1].input("admin").run()
     at.button[0].click().run()
@@ -147,7 +145,6 @@ def test_settings_2(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     with sql_engine_app.begin() as con:
         users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
 
-    # enter invalid credentials
     at.text_input[0].input("admin").run()
     at.text_input[1].input("admin").run()
     at.button[0].click().run()
@@ -204,7 +201,6 @@ def test_settings_3(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     with sql_engine_app.begin() as con:
         users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
 
-    # enter invalid credentials
     at.text_input[0].input("admin").run()
     at.text_input[1].input("admin").run()
     at.button[0].click().run()
@@ -261,7 +257,6 @@ def test_settings_4(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     with sql_engine_app.begin() as con:
         users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
 
-    # enter invalid credentials
     at.text_input[0].input("admin").run()
     at.text_input[1].input("admin").run()
     at.button[0].click().run()
@@ -318,7 +313,6 @@ def test_settings_5(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     with sql_engine_app.begin() as con:
         users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
 
-    # enter invalid credentials
     at.text_input[0].input("admin").run()
     at.text_input[1].input("admin").run()
     at.button[0].click().run()
