@@ -49,3 +49,10 @@ class UpdateCountryStatus(enum.Enum):
     FAILURE = 2
     USER_NOT_FOUND = 3
     COUNTRY_IS_NONE = 4
+
+
+class UpdateImgStatus(enum.Enum):
+    SUCCESS = 1
+    FAILURE = 2
+    USER_NOT_FOUND = 3
+    NAME_IS_NONE = 4

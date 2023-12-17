@@ -47,8 +47,6 @@ jobs:
           --random-order \
           --html=pytest-report.html --self-contained-html \
           --exitfirst \
-          --doctest-modules \
-          --junitxml=junit/test-results-${{ matrix.python-version }}.xml \
           spotlesssquad/tests/
 
       - name: Upload pytest test results

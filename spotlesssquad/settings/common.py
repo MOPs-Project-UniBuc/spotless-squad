@@ -269,14 +269,14 @@ def update_imgBase64(
     email: str,
     new_imgBase64: str,
     con: sqlalchemy.engine.Connection,
-) -> models.UpdateNameStatus:
+) -> models.UpdateImgStatus:
     """
     Update user for the given email.
     """
 
     # check if user exists
     if not user_exists(email, con):
-        return models.UpdateNameStatus.USER_NOT_FOUND
+        return models.UpdateImgStatus.USER_NOT_FOUND
 
     res = update_user(
         email=email,
@@ -285,6 +285,6 @@ def update_imgBase64(
     )
 
     if res:
-        return models.UpdateNameStatus.SUCCESS
+        return models.UpdateImgStatus.SUCCESS
     else:
-        return models.UpdateNameStatus.FAILURE
+        return models.UpdateImgStatus.FAILURE
