@@ -104,3 +104,41 @@ def drop_clean_service_providers_table(sql_engine: sqlalchemy.engine.Engine) -> 
     with sql_engine.begin() as con:
         drop = sqlalchemy.text("DROP TABLE IF EXISTS CleanServiceProviders")
         con.execute(drop)
+
+
+class CleanServiceProvidersBookings(Base):
+    __tablename__ = "CleanServiceProvidersBookings"
+
+    id = sqlalchemy.Column(
+        sqlalchemy.Integer, primary_key=True, index=True, unique=True
+    )
+    client_id = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    provider_id = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    date = sqlalchemy.Column(sqlalchemy.DateTime, nullable=False)
+    created_at = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
+
+
+def create_clean_service_providers_bookings_table(
+    sql_engine: sqlalchemy.engine.Engine,
+) -> None:
+    # CREATE CLEAN SERVICE PROVIDERS BOOKINGS TABLE
+    with sql_engine.begin() as con:
+        create = sqlalchemy.text(
+            """CREATE TABLE IF NOT EXISTS CleanServiceProvidersBookings (
+            id INTEGER PRIMARY KEY,
+            client_id INTEGER NOT NULL,
+            provider_id INTEGER NOT NULL,
+            date TIMESTAMP NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )"""
+        )
+        con.execute(create)
+
+
+def drop_clean_service_providers_bookings_table(
+    sql_engine: sqlalchemy.engine.Engine,
+) -> None:
+    # DROP CLEAN SERVICE PROVIDERS BOOKINGS TABLE
+    with sql_engine.begin() as con:
+        drop = sqlalchemy.text("DROP TABLE IF EXISTS CleanServiceProvidersBookings")
+        con.execute(drop)

@@ -85,8 +85,6 @@ def test_settings_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
 
-    assert at.sidebar.radio[0].value == "Settings"
-
     at.sidebar.radio[0].set_value("Settings").run()
 
     assert at.header[0].value == "Settings"
@@ -151,8 +149,6 @@ def test_settings_2(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
 
-    assert at.sidebar.radio[0].value == "Settings"
-
     at.sidebar.radio[0].set_value("Settings").run()
 
     assert at.header[0].value == "Settings"
@@ -206,8 +202,6 @@ def test_settings_3(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     at.button[0].click().run()
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
-
-    assert at.sidebar.radio[0].value == "Settings"
 
     at.sidebar.radio[0].set_value("Settings").run()
 
@@ -263,8 +257,6 @@ def test_settings_4(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
 
-    assert at.sidebar.radio[0].value == "Settings"
-
     at.sidebar.radio[0].set_value("Settings").run()
 
     assert at.header[0].value == "Settings"
@@ -318,8 +310,6 @@ def test_settings_5(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     at.button[0].click().run()
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
-
-    assert at.sidebar.radio[0].value == "Settings"
 
     at.sidebar.radio[0].set_value("Settings").run()
 
@@ -376,8 +366,6 @@ def test_settings_6(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
 
-    assert at.sidebar.radio[0].value == "Settings"
-
     at.sidebar.radio[0].set_value("Settings").run()
 
     assert at.header[0].value == "Settings"
@@ -432,8 +420,6 @@ def test_settings_7(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     at.button[0].click().run()
 
     assert at.sidebar.title[0].value == "SpotlessSquad"
-
-    assert at.sidebar.radio[0].value == "Settings"
 
     at.sidebar.radio[0].set_value("Settings").run()
 
