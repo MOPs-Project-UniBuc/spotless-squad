@@ -1,3 +1,5 @@
+import hashlib
+
 import pandas as pd
 import sqlalchemy
 import sqlalchemy.engine
@@ -34,7 +36,7 @@ def test_login_2(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -65,7 +67,7 @@ def test_settings_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -129,7 +131,7 @@ def test_settings_2(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -183,7 +185,7 @@ def test_settings_3(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -237,7 +239,7 @@ def test_settings_4(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -291,7 +293,7 @@ def test_settings_5(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -345,7 +347,7 @@ def test_settings_6(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -400,7 +402,7 @@ def test_settings_7(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
@@ -454,7 +456,7 @@ def test_logout_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None
             {
                 "name": "name",
                 "username": "admin",
-                "password": "admin",
+                "password": hashlib.sha256("admin".encode()).hexdigest(),
                 "email": "admin@gmail.com",
                 "phone": "0767158866",
                 "address": "address",
