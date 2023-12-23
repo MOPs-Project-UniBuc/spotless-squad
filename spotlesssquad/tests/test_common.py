@@ -28,8 +28,9 @@ def sql_engine_app() -> Generator[sqlalchemy.engine.Engine, None, None]:
     random.seed(random.randint(0, 1000))
     random_string = "".join(random.choices(string.ascii_lowercase, k=10))
     print(f"random_string: {random_string}")
+    db_name = f"{random_string}.db"
     engine = sqlalchemy.create_engine(
-        f"sqlite:///{random_string}?cache=shared&mode=memory",
+        f"sqlite:///{db_name}?cache=shared&mode=memory",
         echo=True,
     )
 
@@ -44,7 +45,7 @@ def sql_engine_app() -> Generator[sqlalchemy.engine.Engine, None, None]:
     yield engine
 
     # delete database
-    os.remove(random_string)
+    os.remove(db_name)
 
 
 @pytest.fixture()
