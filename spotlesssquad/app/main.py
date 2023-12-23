@@ -28,7 +28,7 @@ def main() -> None:
             del st.session_state["authentication_status"]
             del st.session_state["name"]
 
-            st.experimental_rerun()
+            st.rerun()
 
         PAGES = {
             "Booking": booking_renderer.render,
