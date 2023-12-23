@@ -62,5 +62,8 @@
   },
   "python.analysis.typeCheckingMode": "off",
   "mypy-type-checker.importStrategy": "fromEnvironment",
-  "mypy-type-checker.showNotification": true
+  "mypy-type-checker.showNotification": true,
+  "search.exclude": {
+    "venv-*": true
+  }
 }
