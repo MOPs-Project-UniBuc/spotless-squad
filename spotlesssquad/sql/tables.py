@@ -4,7 +4,7 @@ import sqlalchemy
 import sqlalchemy.orm
 
 
-class Base(sqlalchemy.orm.DeclarativeBase):  # type: ignore
+class Base(sqlalchemy.orm.DeclarativeBase):
     pass
 
 

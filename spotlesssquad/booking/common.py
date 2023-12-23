@@ -24,17 +24,19 @@ def get_all_providers(
     sql_engine: sqlalchemy.engine.Engine,
 ) -> pd.DataFrame:
     if username == "admin":
-        query = sqlalchemy.select(tables.CleanServiceProviders)
+        query_admin = sqlalchemy.select(tables.CleanServiceProviders)
+        with sql_engine.begin() as con:
+            df = pd.read_sql(query_admin, con)
+
     else:
-        query = sqlalchemy.select(
+        query_user = sqlalchemy.select(
             tables.CleanServiceProviders.name,
             tables.CleanServiceProviders.email,
             tables.CleanServiceProviders.cleanServiceType,
             tables.CleanServiceProviders.zip,
         )
-
-    with sql_engine.begin() as con:
-        df = pd.read_sql(query, con)
+        with sql_engine.begin() as con:
+            df = pd.read_sql(query_user, con)
 
     df = df.rename(
         columns={
@@ -65,36 +67,36 @@ def book_provider(
     date: datetime.date,
     sql_engine: sqlalchemy.engine.Engine,
 ) -> models.BookingStatus:
-    query = sqlalchemy.select(tables.CleanServiceProviders).where(
+    query_provider = sqlalchemy.select(tables.CleanServiceProviders).where(
         tables.CleanServiceProviders.name == provider_name
     )
 
     with sql_engine.begin() as con:
-        provider_df = pd.read_sql(query, con)
+        provider_df = pd.read_sql(query_provider, con)
 
     if len(provider_df) == 0:
         return models.BookingStatus.PROVIDER_NOT_FOUND
 
     provider_id = int(provider_df["id"].iloc[0])
 
-    query = (
+    query_bookings = (
         sqlalchemy.select(tables.CleanServiceProvidersBookings)
         .where(tables.CleanServiceProvidersBookings.provider_id == provider_id)
         .where(tables.CleanServiceProvidersBookings.date == date)
     )
 
     with sql_engine.begin() as con:
-        bookings_df = pd.read_sql(query, con)
+        bookings_df = pd.read_sql(query_bookings, con)
 
     if len(bookings_df) > 0:
         return models.BookingStatus.PROVIDER_NOT_AVAILABLE
 
-    query = sqlalchemy.select(tables.ClientUsers).where(
+    query_user = sqlalchemy.select(tables.ClientUsers).where(
         tables.ClientUsers.username == username
     )
 
     with sql_engine.begin() as con:
-        user_df = pd.read_sql(query, con)
+        user_df = pd.read_sql(query_user, con)
 
     user_id = int(user_df["id"].iloc[0])
 

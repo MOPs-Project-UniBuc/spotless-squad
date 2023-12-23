@@ -19,7 +19,7 @@ def render(state: State) -> None:
                 if login(username, password, state.sql_engine):
                     st.session_state["authentication_status"] = True
                     st.session_state["name"] = username
-                    st.experimental_rerun()
+                    st.rerun()
 
                 else:
                     st.error("The username or password you have entered is invalid.")
