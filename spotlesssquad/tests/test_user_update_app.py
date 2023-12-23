@@ -442,3 +442,39 @@ def test_settings_7(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> No
     at.button[0].click().run()
 
     assert at.error[0].value == "Failed to update zip"
+
+
+def test_logout_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: Log in and Log out
+    """
+
+    users_df = pd.DataFrame(
+        [
+            {
+                "name": "name",
+                "username": "admin",
+                "password": "admin",
+                "email": "admin@gmail.com",
+                "phone": "0767158866",
+                "address": "address",
+                "city": "city",
+                "zip": "zip",
+                "country": "country",
+                "imgBase64": "",
+            },
+        ]
+    )
+    with sql_engine_app.begin() as con:
+        users_df.to_sql("ClientUsers", con, if_exists="append", index=False)
+
+    at.text_input[0].input("admin").run()
+    at.text_input[1].input("admin").run()
+    at.button[0].click().run()
+
+    assert at.sidebar.title[0].value == "SpotlessSquad"
+
+    at.sidebar.button[0].label = "Logout"
+    at.sidebar.button[0].click().run()
+
+    assert at.title[0].value == "SpotlessSquad"

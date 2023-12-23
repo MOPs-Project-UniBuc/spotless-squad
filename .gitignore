@@ -55,6 +55,7 @@ coverage.json
 pytest-report.html
 
 junit.xml
+*.db
 
 # Translations
 *.mo
