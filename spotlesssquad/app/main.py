@@ -81,6 +81,7 @@ def main() -> None:
         and st.session_state.get("name", "") == ""
     ):
         signup_renderer.render(state)
+
     elif (
         st.session_state.get("authentication_status", False) is False
         and st.session_state.get("name", "") == ""
