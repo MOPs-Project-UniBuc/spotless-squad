@@ -9,6 +9,7 @@ from spotlesssquad.common import get_state
 from spotlesssquad.login import renderer as login_renderer
 from spotlesssquad.my_bookings import renderer as my_bookings_renderer
 from spotlesssquad.settings import renderer as settings_renderer
+from spotlesssquad.signup import renderer as signup_renderer
 
 runner = sys.modules["streamlit.runtime.scriptrunner.script_runner"]
 original_handler = runner.handle_uncaught_app_exception
@@ -75,6 +76,11 @@ def main() -> None:
         page = PAGES[selection]
         page(state)
 
+    elif (
+        st.session_state.get("sign_up", False) is True
+        and st.session_state.get("name", "") == ""
+    ):
+        signup_renderer.render(state)
     elif (
         st.session_state.get("authentication_status", False) is False
         and st.session_state.get("name", "") == ""
