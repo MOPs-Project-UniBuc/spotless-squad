@@ -490,10 +490,31 @@ def test_signup_1(at: AppTest, sql_engine: sqlalchemy.engine.Engine) -> None:
     Scenario: User does not already exist in database
     """
 
-    test1=signup_client("nameclient", "123", "nameclient", "test@test.com", "city", "adresa", "country", "zip", "0735454311",sql_engine)
-    test2 = signup_clean_provider("nameclean", "123", "nameclean", "test@test.com", "city", "adresa", "country", "zip",
-                          "0735454311", "service",sql_engine)
-
+    test1 = signup_client(
+        "nameclient",
+        "123",
+        "nameclient",
+        "test@test.com",
+        "city",
+        "adresa",
+        "country",
+        "zip",
+        "0735454311",
+        sql_engine,
+    )
+    test2 = signup_clean_provider(
+        "nameclean",
+        "123",
+        "nameclean",
+        "test@test.com",
+        "city",
+        "adresa",
+        "country",
+        "zip",
+        "0735454311",
+        "service",
+        sql_engine,
+    )
 
     assert test1 is True
     assert test2 is True
@@ -503,16 +524,57 @@ def test_signup_2(at: AppTest, sql_engine: sqlalchemy.engine.Engine) -> None:
     """
     Scenario: User does  already exist in database
     """
-    test1 = signup_client("nameclient", "123", "nameclient", "test@test.com", "city", "adresa", "country", "zip",
-                          "0735454311",
-                          sql_engine)
-    test2 = signup_clean_provider("nameclean", "123", "nameclean", "test@test.com", "city", "adresa", "country", "zip",
-                                  "0735454311", "service", sql_engine)
+    test1 = signup_client(
+        "nameclient",
+        "123",
+        "nameclient",
+        "test@test.com",
+        "city",
+        "adresa",
+        "country",
+        "zip",
+        "0735454311",
+        sql_engine,
+    )
+    test2 = signup_clean_provider(
+        "nameclean",
+        "123",
+        "nameclean",
+        "test@test.com",
+        "city",
+        "adresa",
+        "country",
+        "zip",
+        "0735454311",
+        "service",
+        sql_engine,
+    )
 
-    test1= signup_client("nameclient", "123", "nameclient", "test@test.com", "city", "adresa", "country", "zip", "0735454311",
-                  sql_engine)
-    test2= signup_clean_provider("nameclean", "123", "nameclean", "test@test.com", "city", "adresa", "country", "zip",
-                          "0735454311", "service", sql_engine)
+    test1 = signup_client(
+        "nameclient",
+        "123",
+        "nameclient",
+        "test@test.com",
+        "city",
+        "adresa",
+        "country",
+        "zip",
+        "0735454311",
+        sql_engine,
+    )
+    test2 = signup_clean_provider(
+        "nameclean",
+        "123",
+        "nameclean",
+        "test@test.com",
+        "city",
+        "adresa",
+        "country",
+        "zip",
+        "0735454311",
+        "service",
+        sql_engine,
+    )
 
     assert test1 is False
     assert test2 is False
