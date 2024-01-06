@@ -5,6 +5,9 @@ import sqlalchemy
 import sqlalchemy.engine
 from streamlit.testing.v1 import AppTest
 
+from spotlesssquad.signup.common import signup_client, signup_clean_provider
+from spotlesssquad.sql import tables
+
 
 def test_login_1(at: AppTest) -> None:
     """
@@ -480,3 +483,61 @@ def test_logout_1(at: AppTest, sql_engine_app: sqlalchemy.engine.Engine) -> None
     at.sidebar.button[0].click().run()
 
     assert at.title[0].value == "SpotlessSquad"
+
+
+def test_signup_1(at: AppTest, sql_engine: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User does not already exist in database
+    """
+
+    test1=signup_client("nameclient", "123", "nameclient", "test@test.com", "city", "adresa", "country", "zip", "0735454311")
+    test2 = signup_clean_provider("nameclean", "123", "nameclean", "test@test.com", "city", "adresa", "country", "zip",
+                          "0735454311", "service")
+
+
+    # sclient = sqlalchemy.select(tables.ClientUsers).where(
+    #     tables.ClientUsers.username == "nameclient"
+    # )
+    # sclean = sqlalchemy.select(tables.ClientUsers).where(
+    #     tables.ClientUsers.username == "nameclean"
+    # )
+    #
+    # with sql_engine.begin() as con:
+    #     client_df = pd.read_sql_query(sclient, con)
+    #     clean_df = pd.read_sql_query(sclean, con)
+    #
+    # assert client_df.shape[0] == 1
+    # assert client_df.iloc[0]["name"] == "nameclient"
+    # assert clean_df.shape[0] == 1
+    # assert clean_df.iloc[0]["name"] == "nameclean"
+    assert test1 is True
+    assert test2 is True
+
+
+def test_signup_2(at: AppTest, sql_engine: sqlalchemy.engine.Engine) -> None:
+    """
+    Scenario: User does  already exist in database
+    """
+
+    test1= signup_client("nameclient", "123", "nameclient", "test@test.com", "city", "adresa", "country", "zip", "0735454311",
+                  sql_engine)
+    test2= signup_clean_provider("nameclean", "123", "nameclean", "test@test.com", "city", "adresa", "country", "zip",
+                          "0735454311", "service", sql_engine)
+
+    # sclient = sqlalchemy.select(tables.ClientUsers).where(
+    #     tables.ClientUsers.username == "nameclient"
+    # )
+    # sclean = sqlalchemy.select(tables.ClientUsers).where(
+    #     tables.ClientUsers.username == "nameclean"
+    # )
+    #
+    # with sql_engine.begin() as con:
+    #     client_df = pd.read_sql_query(sclient, con)
+    #     clean_df = pd.read_sql_query(sclean, con)
+    #
+    # assert client_df.shape[0] == 1
+    # assert client_df.iloc[0]["name"] == "new_user"
+    # assert clean_df.shape[0] == 1
+    # assert clean_df.iloc[0]["name"] == "new_user"
+    assert test1 is False
+    assert test2 is False
