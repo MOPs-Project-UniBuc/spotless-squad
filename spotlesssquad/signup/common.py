@@ -84,7 +84,7 @@ def signup_clean_provider(
                 "country": country,
                 "zip": zip,
                 "phone": phone,
-                "service_type": service_type,
+                "cleanServiceType": service_type,
             }
         ]
     )
