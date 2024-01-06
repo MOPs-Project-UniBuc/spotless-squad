@@ -523,7 +523,7 @@ def test_signup_2(at: AppTest, sql_engine: sqlalchemy.engine.Engine) -> None:
                   sql_engine)
     test2= signup_clean_provider("nameclean", "123", "nameclean", "test@test.com", "city", "adresa", "country", "zip",
                           "0735454311", "service", sql_engine)
-
+#blabalba
     # sclient = sqlalchemy.select(tables.ClientUsers).where(
     #     tables.ClientUsers.username == "nameclient"
     # )
