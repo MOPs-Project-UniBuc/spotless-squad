@@ -1,12 +1,10 @@
 import hashlib
 
 import pandas as pd
-import sqlalchemy
 import sqlalchemy.engine
 from streamlit.testing.v1 import AppTest
 
 from spotlesssquad.signup.common import signup_client, signup_clean_provider
-from spotlesssquad.sql import tables
 
 
 def test_login_1(at: AppTest) -> None:
