@@ -64,7 +64,7 @@ def render(state: State) -> None:
                 ret2 = common.update_phone(user.email, phone, con)
                 if ret2 != models.UpdatePhoneStatus.SUCCESS:
                     st.error("Failed to update phone")
-                    return
+                    return #blalasas
                 changed = True
             if address != user.address:
                 ret3 = common.update_address(user.email, address, con)
