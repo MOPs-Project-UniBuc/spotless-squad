@@ -18,7 +18,7 @@ types-requests
 ruff==0.1.6
 
 # for APP
-streamlit==1.29.0
+streamlit==1.30.0
 
 # for sqlite ORM
 SQLAlchemy==2.0.23
